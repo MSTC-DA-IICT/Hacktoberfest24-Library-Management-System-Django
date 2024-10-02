@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+models_branch
 
 class Book(models.Model):
     STATUS_CHOICES = [
@@ -25,3 +26,24 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# Genre Model
+class Genre(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+
+# Borrower Model
+class Borrower(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=15)
+    borrowed_books = models.ManyToManyField(Book, blank=True)
+
+    def __str__(self):
+        return self.name
+
