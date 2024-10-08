@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-models_branch
 
 class Book(models.Model):
     STATUS_CHOICES = [
