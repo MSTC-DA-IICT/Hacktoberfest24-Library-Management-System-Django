@@ -1,0 +1,10 @@
+<!-- templates/book_list.html -->
+<h1>Books</h1>
+<a href="{% url 'book_create' %}">Add a new book</a>
+<ul>
+    {% for book in books %}
+    <li>
+        <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> by {{ book.author }}
+    </li>
+    {% endfor %}
+</ul>
