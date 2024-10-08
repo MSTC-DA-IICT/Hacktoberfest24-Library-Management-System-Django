@@ -1,0 +1,10 @@
+<!-- templates/book_detail.html -->
+<h1>{{ book.title }}</h1>
+<p>Author: {{ book.author }}</p>
+<p>ISBN: {{ book.ISBN }}</p>
+<p>Published: {{ book.publication_date }}</p>
+<p>Status: {{ book.get_status_display }}</p>
+
+<a href="{% url 'book_update' book.pk %}">Edit</a> |
+<a href="{% url 'book_delete' book.pk %}">Delete</a> |
+<a href="{% url 'book_list' %}">Back to list</a>

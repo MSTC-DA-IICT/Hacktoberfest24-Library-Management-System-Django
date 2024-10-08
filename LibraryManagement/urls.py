@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from LibraryManagementSystem import views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.book_list, name='book_list'),  # List all books
+    path('book/<int:pk>/', views.book_detail, name='book_detail'),  # Book detail view
+    path('book/new/', views.book_create, name='book_create'),  # Create a new book
+    path('book/<int:pk>/edit/', views.book_update, name='book_update'),  # Edit an existing book
+    path('book/<int:pk>/delete/', views.book_delete, name='book_delete'),  # Delete a book
 ]
+
