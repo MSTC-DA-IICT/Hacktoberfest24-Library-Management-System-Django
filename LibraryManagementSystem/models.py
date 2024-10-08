@@ -1,7 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
-models_branch
+class User(AbstractUser):
+    email = models.EmailField(unique=True, blank=False, null=False, error_messages = {
+        "unique": "A user with that email already exists.",
+    })
 
 class Book(models.Model):
     STATUS_CHOICES = [
@@ -46,4 +49,3 @@ class Borrower(models.Model):
 
     def __str__(self):
         return self.name
-
