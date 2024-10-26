@@ -1,0 +1,75 @@
+{% extends 'auth/layout.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<section class="vh-100">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card mt-5 mb-5 text-dark border border-dark border-1 rounded-0">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-4">
+                            <p class="fs-3 fw-bold text-center mb-0">Sign Up</p>
+                            <p class="text-center">
+                                Already have an account? <a href="{% url 'login' %}" class="link-primary text-decoration-none">Sign In</a>
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <form method="POST" action="{% url 'signup' %}">
+                                {% csrf_token %}
+                                <div class="row gy-3 overflow-hidden">
+                                    <!-- Username Field -->
+                                    <div class="col-12">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" class="form-control border-1 rounded-0 border-dark" 
+                                                   name="username" id="username" placeholder="User Name" 
+                                                   value="{{ form.username.value|default_if_none:'' }}" required>
+                                            <label for="username" class="form-label">User Name</label>
+                                        </div>
+                                        {% if form.username.errors %}
+                                            <div class="text-danger small">{{ form.username.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Email Field -->
+                                    <div class="col-12">
+                                        <div class="form-floating mb-2">
+                                            <input type="email" class="form-control border-1 rounded-0 border-dark" 
+                                                   name="email" id="email" placeholder="name@example.com" 
+                                                   value="{{ form.email.value|default_if_none:'' }}" required>
+                                            <label for="email" class="form-label">Email</label>
+                                        </div>
+                                        {% if form.email.errors %}
+                                            <div class="text-danger small">{{ form.email.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Password Field -->
+                                    <div class="col-12">
+                                        <div class="form-floating mb-2">
+                                            <input type="password" class="form-control border-1 rounded-0 border-dark" 
+                                                   name="password" id="password" placeholder="Password" required>
+                                            <label for="password" class="form-label">Password</label>
+                                        </div>
+                                        {% if form.password.errors %}
+                                            <div class="text-danger small">{{ form.password.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Submit Button -->
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button class="btn btn-lg btn-dark rounded-0 fs-6" type="submit">Signup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
