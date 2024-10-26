@@ -1,0 +1,108 @@
+{% extends 'auth/layout.html' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+<section class="vh-100">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card mt-5 mb-5 text-dark border border-dark border-1 rounded-0">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-3">
+                            <p class="fs-3 fw-bold text-center mb-0">Sign In</p>
+                            <p class="text-center">
+                                Don't have an account?
+                                <a href="{% url 'signup' %}" class="link-primary text-decoration-none">Sign up</a>
+                            </p>
+                        </div>
+
+                        <div class="mt-4">
+                            <form method="POST" action="{% url 'login' %}">
+                                {% csrf_token %}
+
+                                <!-- Display messages (success or error) -->
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="{% if message.tags == 'error' %}text-danger{% else %}text-success{% endif %} mb-3">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                <!-- Username -->
+                                <div class="row gy-3 overflow-hidden">
+                                    <div class="col-12">
+                                        <div class="form-floating mb-2">
+                                            <input
+                                                type="text"
+                                                class="form-control border-1 rounded-0 border-dark"
+                                                name="username"
+                                                id="username"
+                                                placeholder="Username"
+                                                value="{{ request.POST.username|default:'' }}"
+                                                required
+                                            />
+                                            <label for="username" class="form-label">Username</label>
+                                            {% if form.username.errors %}
+                                                <div class="text-danger mt-1">{{ form.username.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="col-12">
+                                        <div class="form-floating mb-2">
+                                            <input
+                                                type="password"
+                                                class="form-control border-1 rounded-0 border-dark"
+                                                name="password"
+                                                id="password"
+                                                placeholder="Password"
+                                                required
+                                            />
+                                            <label for="password" class="form-label">Password</label>
+                                            {% if form.password.errors %}
+                                                <div class="text-danger mt-1">{{ form.password.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <!-- Remember Me Checkbox -->
+                                    <div class="col-12">
+                                        <div class="row justify-content-between">
+                                            <div class="col-6">
+                                                <div class="form-check">
+                                                    <input
+                                                        class="form-check-input border border-1 border-dark rounded-0"
+                                                        type="checkbox"
+                                                        name="remember_me"
+                                                        id="remember_me"
+                                                    />
+                                                    <label class="form-check-label text-dark" for="remember_me">
+                                                        Remember me
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button class="btn btn-lg btn-dark rounded-0 fs-6" type="submit">
+                                                Login
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
