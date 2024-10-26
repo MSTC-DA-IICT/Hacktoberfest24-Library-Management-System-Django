@@ -13,6 +13,26 @@ class Book(models.Model):
     ISBN = models.CharField(max_length=13, unique=True)
     publication_date = models.DateField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='available')
+    borrowed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='borrowed_books')
+
+    def __str__(self):
+        return f"{self.title} by {self.author.name}"
+
+    def borrow_book(self, user):
+        if self.status == 'available':
+            self.status = 'borrowed'
+            self.borrowed_by = user
+            self.save()
+        else:
+            raise ValidationError('This book is already borrowed.')
+
+    def return_book(self):
+        if self.status == 'borrowed':
+            self.status = 'available'
+            self.borrowed_by = None
+            self.save()
+        else:
+            raise ValidationError('This book is not currently borrowed.')
 
     def __str__(self):
         return f"{self.status} : {self.title} by {self.author.name}"
